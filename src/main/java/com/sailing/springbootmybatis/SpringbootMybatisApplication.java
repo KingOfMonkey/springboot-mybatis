@@ -1,0 +1,26 @@
+package com.sailing.springbootmybatis;
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+/**
+ * @author baibing
+ * @project: springboot-mybatis
+ * @package: com.sailing.springbootmybatis
+ * @Description: 主项目的启动类    注意：1.官方建议将此类放到主目录下，以便能扫描到 mapper、service 和 controller
+ *                                     2.如果没有按照上面配置，启动项目会报注解找不到相关class错误，解决方法:是在
+ *                                       启动类上面增加 @ComponentScan（扫描所有controller和 service 以及 Component）
+ *                                       和 @MapperScan(扫描所有mapper) 两个注解。
+ * @date 2018/9/12 10：07
+ */
+//@ComponentScan(value = {"com.sailing.springbootmybatis.*"})
+//@MapperScan(value = {"com.sailing.springbootmybatis.mapper"})
+@SpringBootApplication
+public class SpringbootMybatisApplication{
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringbootMybatisApplication.class, args);
+	}
+}
