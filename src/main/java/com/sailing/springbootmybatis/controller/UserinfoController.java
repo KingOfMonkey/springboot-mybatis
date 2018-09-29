@@ -72,6 +72,7 @@ public class UserinfoController{
 
     /**
      * 新增用户 (带参数校验@Valid)
+     * 注意：BindingResult 对象必须在 @Valid 的紧挨着的后面，否则接收不到错误信息
      * @param userinfo
      * @return
      */
