@@ -1,6 +1,8 @@
 package com.sailing.springbootmybatis.controller;
 
 import com.sailing.springbootmybatis.bean.Userinfo;
+import com.sailing.springbootmybatis.common.log.LogOperationEnum;
+import com.sailing.springbootmybatis.common.log.annotation.MyLog;
 import com.sailing.springbootmybatis.common.response.BuildResponseUtil;
 import com.sailing.springbootmybatis.common.response.ResponseData;
 import com.sailing.springbootmybatis.common.websocket.WebSocketServer;
@@ -43,6 +45,7 @@ public class UserinfoController{
      * @return
      */
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @MyLog(type = LogOperationEnum.SELECT,value = "查询指定id的用户信息")
     @ApiOperation(value = "查询指定id的用户信息接口", notes = "查询指定id的用户信息接口")
     public ResponseData getUser(@PathVariable(value = "id") Integer id){
         return userinfoService.findById(id);
@@ -53,6 +56,7 @@ public class UserinfoController{
      * @return
      */
     @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @MyLog(type = LogOperationEnum.SELECT,value = "查询全部用户信息")
     @ApiOperation(value = "查询所有用户信息接口", notes = "查询所有用户信息接口")
     public ResponseData getAllUsers(){
         return userinfoService.findAllUsers();
@@ -77,6 +81,7 @@ public class UserinfoController{
      * @return
      */
     @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @MyLog(type = LogOperationEnum.INSERT, value = "新增用户信息")
     @ApiOperation(value = "新增用户接口(包含参数校验)", notes = "新增用户接口(包含参数校验)")
     public ResponseData saveUserinfo(@RequestBody @Valid Userinfo userinfo, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
