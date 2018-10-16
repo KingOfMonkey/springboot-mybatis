@@ -84,4 +84,17 @@ public class Userinfo implements Serializable {
     public void setUserPass(String userPass) {
         this.userPass = userPass == null ? null : userPass.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Userinfo{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                ", address='" + address + '\'' +
+                ", userPass='" + userPass + '\'' +
+                '}';
+    }
 }
