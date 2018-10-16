@@ -15,6 +15,8 @@ public class SysLog {
 
     private String userName;//用户名
 
+    private String type;//操作类型 DELETE INSERT UPDATE SELECT
+
     private String operation;//操作名称
 
     private String method;//操作方法
@@ -79,5 +81,13 @@ public class SysLog {
 
     public void setOperationTime(Date operationTime) {
         this.operationTime = operationTime;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
