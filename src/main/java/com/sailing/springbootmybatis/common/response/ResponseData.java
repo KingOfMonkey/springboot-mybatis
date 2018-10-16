@@ -28,12 +28,6 @@ public class ResponseData<T> implements Serializable {
         this.message = message;
     }
 
-    public ResponseData(Integer code, String message, T data){
-        this.code = code;
-        this.message = message;
-        this.data = data;
-    }
-
     /**
      * 不带数据的构造函数（枚举）
      * @param responseEnum 状态以及信息枚举
