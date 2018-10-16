@@ -1,5 +1,7 @@
 package com.sailing.springbootmybatis.common.log.annotation;
 
+import com.sailing.springbootmybatis.common.log.LogOperationEnum;
+
 import java.lang.annotation.*;
 
 /**
@@ -14,7 +16,7 @@ import java.lang.annotation.*;
 @Documented //生成文档
 public @interface MyLog {
 
-    int type() default 0;
+    LogOperationEnum type();
 
     String value() default "日志注解";
 }
