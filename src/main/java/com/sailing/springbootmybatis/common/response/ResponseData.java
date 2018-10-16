@@ -20,7 +20,7 @@ public class ResponseData<T> implements Serializable {
     /**
      * 私有构造函数，不允许外部调用，要求必须传入 返回码和提示信息
      */
-    public ResponseData(){}
+    private ResponseData(){}
 
 
     public ResponseData(Integer code, String message){
