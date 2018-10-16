@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.sailing.springbootmybatis.bean.SysLog;
 import com.sailing.springbootmybatis.common.log.annotation.MyLog;
 import com.sailing.springbootmybatis.common.response.ResponseData;
+import com.sailing.springbootmybatis.service.SysLogService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -15,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.Date;
 
 /**
  * @author baibing
@@ -26,6 +29,9 @@ import java.lang.reflect.Method;
 @Aspect//声明一个切面
 @Component//必须添加此注解，可以让spring获取此切面
 public class LogAspect {
+
+    @Autowired
+    private SysLogService sysLogService;
 
     @Pointcut("@annotation(com.sailing.springbootmybatis.common.log.annotation.MyLog)")
     public void logPointCut(){
@@ -41,61 +47,62 @@ public class LogAspect {
          方法返回后调用
      */
 //    @Before("logPointCut()")
-//    public void testBefore(){
-//        System.out.println("前置通知");
-//    }
-//
+    public void testBefore(){
+        System.out.println("前置通知");
+    }
+
 //    @After("logPointCut()")
-//    public void testAfter(){
-//        System.out.println("后置通知");
-//    }
+    public void testAfter(){
+        System.out.println("后置通知");
+    }
 
 //    @Around("logPointCut()")
-//    public Object testAround(ProceedingJoinPoint joinPoint){
-//        System.out.println("环绕通知开始");
-//        Object result = null;
-//        try {
-//            result = joinPoint.proceed();//执行目标方法
-//            System.out.println(((ResponseData)result).getData());
-//        } catch (Throwable throwable) {
-//            throwable.printStackTrace();
-//        }
-//        System.out.println("环绕通知结束");
-//        return result;
-//    }
+    public Object testAround(ProceedingJoinPoint joinPoint){
+        System.out.println("环绕通知开始");
+        Object result = null;
+        try {
+            result = joinPoint.proceed();//执行目标方法
+            System.out.println(((ResponseData)result).getData());
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        System.out.println("环绕通知结束");
+        return result;
+    }
 
     @AfterReturning("logPointCut()")
     public void testAfterReturning(JoinPoint joinPoint){
         SysLog log = new SysLog();
-
+        log.setUserName("admin");
         //从切面织入点处通过反射机制获取织入点处的方法
         MethodSignature signature = (MethodSignature)joinPoint.getSignature();
         Method method = signature.getMethod();
 
         MyLog myLog = method.getAnnotation(MyLog.class);
         if(myLog != null){
-            System.out.println("注解值:" + myLog.value());
+            log.setType(myLog.type().name());
+            log.setOperation(myLog.value());
         }
 
         //获取请求的类名
         String className = joinPoint.getTarget().getClass().getName();
-        System.out.println("类名:" + className);
 
         //获取请求的方法名
         String methodName = method.getName();
-        System.out.println("方法名:" + methodName);
+        log.setMethod(methodName);
 
         //请求的参数
         Object[] args = joinPoint.getArgs();
         String params = JSON.toJSONString(args);
-        System.out.println("方法参数:" + params);
+        log.setParams(params);
 
         //获取用户ip地址
         HttpServletRequest request = getRequest(joinPoint);
-        System.out.println("request:" + request);
-
         String ip = getIpAddr(request);
-        System.out.println("ip地址:" + ip);
+        log.setIp(ip);
+        log.setOperationTime(new Date());
+        sysLogService.insertLog(log);
+        System.out.println(log.getId());
     }
 
     /**
@@ -134,8 +141,8 @@ public class LogAspect {
         return ip;
     }
 
-//    @AfterThrowing("logPointCut()")
-//    public void testAfterThrowing(){
-//        System.out.println("方法抛出异常后调用");
-//    }
+    //@AfterThrowing("logPointCut()")
+    public void testAfterThrowing(){
+        System.out.println("方法抛出异常后调用");
+    }
 }
