@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sailing.springbootmybatis.mapper.SysLogMapper" >
+
+  <resultMap id="BaseResultMap" type="com.sailing.springbootmybatis.bean.SysLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="operation" property="operation" jdbcType="INTEGER" />
+    <result column="method" property="method" jdbcType="VARCHAR" />
+    <result column="params" property="params" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="operation_time" property="operationTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_name, type, operation, method, params, ip, operation_time
+  </sql>
+
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.sailing.springbootmybatis.bean.SysLog" timeout="20" flushCache="true">
+    insert into syslog(user_name, type, operation, method, params, ip, operation_time)
+    VALUES (#{userName}, #{type}, #{operation}, #{method}, #{params}, #{ip}, #{operationTime})
+  </insert>
+</mapper>
