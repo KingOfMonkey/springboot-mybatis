@@ -77,6 +77,7 @@ public class UserinfoController{
     /**
      * 新增用户 (带参数校验@Valid)
      * 注意：BindingResult 对象必须在 @Valid 的紧挨着的后面，否则接收不到错误信息
+     * @Valid 可以校验json 也可以校验表单传递的对象属性
      * @param userinfo
      * @return
      */
