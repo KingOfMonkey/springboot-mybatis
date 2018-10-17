@@ -16,7 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2018/9/12 10：07
  */
 //@ComponentScan(value = {"com.sailing.springbootmybatis.*"})
-//@MapperScan(value = {"com.sailing.springbootmybatis.mapper"})// 加了这行代码可以不用给mapper添加 @mapper注解
+//@MapperScan(basePackages = {"com.sailing.springbootmybatis.mapper"})// 加了这行代码可以不用给mapper添加 @mapper注解
 @SpringBootApplication
 public class SpringbootMybatisApplication{
 

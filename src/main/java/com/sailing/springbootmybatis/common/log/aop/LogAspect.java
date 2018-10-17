@@ -102,7 +102,6 @@ public class LogAspect {
         log.setIp(ip);
         log.setOperationTime(new Date());
         sysLogService.insertLog(log);
-        System.out.println(log.getId());
     }
 
     /**
