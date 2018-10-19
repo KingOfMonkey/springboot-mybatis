@@ -1,4 +1,4 @@
-package com.sailing.springbootmybatis.mapper;
+package com.sailing.springbootmybatis.mapper.one;
 
 import com.sailing.springbootmybatis.bean.SysLog;
 import org.apache.ibatis.annotations.Mapper;
