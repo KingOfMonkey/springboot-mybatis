@@ -11,4 +11,8 @@
   <select id="selectAllPeople" resultMap="BaseResultMap">
     select id, name, age from people
   </select>
+
+  <delete id="deleteByPrimaryId" parameterType="Integer">
+    delete from people where id = #{id}
+  </delete>
 </mapper>
