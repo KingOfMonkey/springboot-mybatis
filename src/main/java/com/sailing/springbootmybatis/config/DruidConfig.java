@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2018/9/12 18:02
  */
 @Configuration
-//@ConfigurationProperties(prefix = "spring.druid") 这种方式没有赋值成功
 public class DruidConfig {
 
     @Value("${spring.druid.name}")
