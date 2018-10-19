@@ -1,7 +1,7 @@
 package com.sailing.springbootmybatis.service.impl;
 
 import com.sailing.springbootmybatis.bean.SysLog;
-import com.sailing.springbootmybatis.mapper.SysLogMapper;
+import com.sailing.springbootmybatis.mapper.one.SysLogMapper;
 import com.sailing.springbootmybatis.service.SysLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -6,10 +6,9 @@ import com.sailing.springbootmybatis.bean.Userinfo;
 import com.sailing.springbootmybatis.common.response.BuildResponseUtil;
 import com.sailing.springbootmybatis.common.response.ResponseData;
 import com.sailing.springbootmybatis.common.exception.ServiceException;
-import com.sailing.springbootmybatis.mapper.UserinfoMapper;
+import com.sailing.springbootmybatis.mapper.one.UserinfoMapper;
 import com.sailing.springbootmybatis.service.UserinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
