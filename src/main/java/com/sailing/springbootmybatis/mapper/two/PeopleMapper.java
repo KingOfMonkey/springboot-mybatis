@@ -16,4 +16,6 @@ import java.util.List;
 public interface PeopleMapper {
 
     List<People> selectAllPeople();
+
+    int deleteByPrimaryId(Integer id);
 }

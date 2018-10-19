@@ -12,4 +12,6 @@ import com.sailing.springbootmybatis.common.response.ResponseData;
 public interface PeopleService {
 
     ResponseData findAllPeople();
+
+    ResponseData deleteByPrimaryId(Integer id);
 }

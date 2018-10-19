@@ -30,4 +30,11 @@ public class PeopleServiceImpl implements PeopleService {
         List<People> list = peopleMapper.selectAllPeople();
         return BuildResponseUtil.buildSuccessResponse(list);
     }
+
+    @Override
+    public ResponseData deleteByPrimaryId(Integer id) {
+        peopleMapper.deleteByPrimaryId(id);
+        System.out.println(10/0);
+        return BuildResponseUtil.buildSuccessResponse();
+    }
 }
