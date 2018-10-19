@@ -4,18 +4,10 @@ server:
 
 ## 配置数据源相关信息
 spring:
-  druid: #druid监控页面用户名和密码
-    name: admin
-    pass: sailing123
   datasource:
-    name: DBconfig
     type: com.alibaba.druid.pool.DruidDataSource
-    initialize: true
-    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
     druid:
+      ## 连接池配置
       filters: stat
       maxActive: 20
       initialSize: 1
@@ -29,6 +21,20 @@ spring:
       testOnReturn: false
       poolPreparedStatements: true
       maxOpenPreparedStatements: 20
+      one:
+        ## JDBC配置
+        name: DBconfig1
+        url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: 123456
+        driver-class-name: com.mysql.jdbc.Driver
+      two:
+        ## JDBC配置
+        name: DBconfig2
+        url: jdbc:mysql://127.0.0.1:3306/slave?useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: 123456
+        driver-class-name: com.mysql.jdbc.Driver
   redis:
     host: 127.0.0.1  # redis服务所在的地址
     port: 6379
@@ -39,6 +45,9 @@ spring:
       min-idle: 1  #连接池最小空闲数
       max-wait: 60000  #获取连接的超时等待事件
     timeout: 30000  #连接redis服务器的最大等待时间
+  druid: #druid监控页面用户名和密码
+    name: admin
+    pass: sailing123
 
 ## 该配置节点为独立的节点
 mybatis:
