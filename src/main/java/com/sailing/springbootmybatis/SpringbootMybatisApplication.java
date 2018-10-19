@@ -1,9 +1,14 @@
 package com.sailing.springbootmybatis;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+
+import javax.sql.DataSource;
 
 /**
  * @author baibing
@@ -18,9 +23,18 @@ import org.springframework.context.annotation.ComponentScan;
 //@ComponentScan(value = {"com.sailing.springbootmybatis.*"})
 //@MapperScan(basePackages = {"com.sailing.springbootmybatis.mapper"})// 加了这行代码可以不用给mapper添加 @mapper注解
 @SpringBootApplication
-public class SpringbootMybatisApplication{
+public class SpringbootMybatisApplication implements CommandLineRunner{
+
+	@Autowired
+	@Qualifier("datasourceOne")
+	private DataSource dataSource;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootMybatisApplication.class, args);
+	}
+
+	@Override
+	public void run(String... strings) throws Exception {
+		System.out.println(dataSource);
 	}
 }
