@@ -6,7 +6,6 @@ import com.sailing.springbootmybatis.common.log.annotation.MyLog;
 import com.sailing.springbootmybatis.common.response.BuildResponseUtil;
 import com.sailing.springbootmybatis.common.response.ResponseData;
 import com.sailing.springbootmybatis.common.websocket.WebSocketServer;
-import com.sailing.springbootmybatis.service.PeopleService;
 import com.sailing.springbootmybatis.service.RedisService;
 import com.sailing.springbootmybatis.service.UserinfoService;
 import io.swagger.annotations.Api;
@@ -40,8 +39,7 @@ public class UserinfoController{
     @Autowired
     private RedisService redisService;
 
-    @Autowired
-    private PeopleService peopleService;
+
 
     /**
      * 查找指定id对应的用户
@@ -189,13 +187,4 @@ public class UserinfoController{
         return redisService.getCollectionValue(key);
     }
 
-    /**
-     * 查询所有people接口
-     * @return
-     */
-    @RequestMapping(value = "/peoples", method = RequestMethod.GET)
-    @ApiOperation(value = "查询所有people接口（测试多数据源）", notes = "查询所有people接口（测试多数据源）")
-    public ResponseData findAllPeople(){
-        return peopleService.findAllPeople();
-    }
 }
