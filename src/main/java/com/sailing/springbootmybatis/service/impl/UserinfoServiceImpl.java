@@ -22,7 +22,7 @@ import java.util.List;
  * @date 2018/9/12 10:03
  */
 @Service
-@Transactional
+@Transactional(value = "transactionManagerOne")
 public class UserinfoServiceImpl implements UserinfoService {
 
     @Autowired
@@ -86,6 +86,7 @@ public class UserinfoServiceImpl implements UserinfoService {
     @Override
     public ResponseData deleteUser(Integer id) {
         userinfoMapper.deleteByPrimaryKey(id);
+        System.out.println(10/0);
         return BuildResponseUtil.buildSuccessResponse();
     }
 

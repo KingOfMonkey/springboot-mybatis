@@ -19,7 +19,7 @@ import java.util.List;
  * @date 2018/10/191137
  */
 @Service
-@Transactional
+@Transactional(value = "transactionManagerTwo")
 public class PeopleServiceImpl implements PeopleService {
 
     @Autowired
