@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -57,6 +58,16 @@ public class DataSourceOneConfig {
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapper_location));
         bean.setConfigLocation(new PathMatchingResourcePatternResolver().getResource(mybatis_config));
         return bean.getObject();
+    }
+
+    /**
+     * 为选中的数据源 datasourceOne 添加事务管理
+     * @param dataSource
+     * @return
+     */
+    @Bean
+    public DataSourceTransactionManager transactionManagerOne(@Qualifier("datasourceOne") DataSource dataSource){
+        return new DataSourceTransactionManager(dataSource);
     }
 
     /**

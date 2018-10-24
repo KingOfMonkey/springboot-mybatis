@@ -11,6 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -42,6 +43,16 @@ public class DataSourceTwoConfig {
         //org.apache.ibatis.binding.BindingException: Invalid bound statement (not found)
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapper_location));
         return bean.getObject();
+    }
+
+    /**
+     * 为选中的数据源 dataSourceTwo 添加事务管理
+     * @param dataSource
+     * @return
+     */
+    @Bean
+    public DataSourceTransactionManager transactionManagerTwo(@Qualifier("dataSourceTwo") DataSource dataSource){
+        return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean
