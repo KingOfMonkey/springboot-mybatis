@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sailing.springbootmybatis.utils.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -46,11 +47,16 @@ public class RedisConfig {
         return redisTemplate;
     }
 
+    /**
+     * 使用上面初始化的RedisTemplate实例来初始化一个RedisUtil对象
+     * ps:@Qualifier("redisTemplate") 可以不用加，如果存在RedisTemplate实例，spring会默认注入
+     * @param redisTemplate
+     * @return
+     */
     @Bean
-    public RedisUtil redisUtil(RedisConnectionFactory redisConnectionFactory){
-        logger.info("redisUtil configure start..." + redisConnectionFactory);
+    public RedisUtil redisUtil(@Qualifier("redisTemplate") RedisTemplate redisTemplate){
         RedisUtil redisUtil = new RedisUtil();
-        redisUtil.setRedisTemplate(redisTemplate(redisConnectionFactory));
+        redisUtil.setRedisTemplate(redisTemplate);
         return redisUtil;
     }
 }
