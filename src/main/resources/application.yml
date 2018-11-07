@@ -52,7 +52,6 @@ spring:
 ## 该配置节点为独立的节点
 mybatis:
   mapper-locations: classpath:mapperXML/*.xml  # 注意：一定要对应mapper映射xml文件的所在路径
-  config-location: classpath:MybatisConfig.xml # 注意: mybatis的配置文件
   type-aliases-package: com.sailing.springbootmybatis.bean # 注意：对应实体类的路径
 
 ## 配置mybatis分页插件
