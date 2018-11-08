@@ -1,12 +1,15 @@
 package com.sailing.springbootmybatis.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
+import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -33,8 +36,18 @@ public class DataSourceOneConfig {
     @Value("${mybatis.mapper-locations}")
     private String mapper_location;
 
-    @Value("${mybatis.config-location}")
-    private String mybatis_config;
+    @Value("${mybatis.type-aliases-package}")
+    private String type_aliases_package;
+
+    @Value("${mybatis.configuration.map-underscore-to-camel-case}")
+    private boolean mapUnderscoreToCamelCase;
+
+    @Value("${mybatis.configuration.log-impl}")
+    private String logImpl;
+
+    //将MybatisConfig类中初始化的对象注入进来
+    @Autowired
+    private ConfigurationCustomizer customizer;
 
     private Logger logger = LoggerFactory.getLogger(DataSourceOneConfig.class);
 
@@ -45,10 +58,15 @@ public class DataSourceOneConfig {
         return DruidDataSourceBuilder.create().build();
     }
 
+    /**
+     * 自定义sqlSessionFactory配置（因为没有用到MybatisAutoConfiguration自动配置类，需要手动配置）
+     * @param dataSource
+     * @return
+     * @throws Exception
+     */
     @Bean
     public SqlSessionFactory sqlSessionFactoryOne(@Qualifier("datasourceOne") DataSource dataSource) throws Exception {
         logger.info("mapper文件地址：" + mapper_location);
-        logger.info("mybatis配置文件地址：" + mybatis_config);
         //在基本的 MyBatis 中,session 工厂可以使用 SqlSessionFactoryBuilder 来创建。
         // 而在 MyBatis-spring 中,则使用SqlSessionFactoryBean 来替代：
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
@@ -56,7 +74,16 @@ public class DataSourceOneConfig {
         //如果重写了 SqlSessionFactory 需要在初始化的时候手动将 mapper 地址 set到 factory 中，否则会报错：
         //org.apache.ibatis.binding.BindingException: Invalid bound statement (not found)
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapper_location));
-        bean.setConfigLocation(new PathMatchingResourcePatternResolver().getResource(mybatis_config));
+        //下面这个setTypeAliasesPackage无效，是mybatis集成springBoot的一个bug，暂时未能解决
+        bean.setTypeAliasesPackage(type_aliases_package);
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        logger.info("mybatis配置驼峰转换为：" + mapUnderscoreToCamelCase);
+        configuration.setMapUnderscoreToCamelCase(mapUnderscoreToCamelCase);
+        logger.info("mybatis配置logImpl为：" + logImpl);
+        configuration.setLogImpl((Class<? extends Log>)Class.forName(logImpl));
+        //因为没有用mybatis-springBoot自动装配，所以需要手动将configuration装配进去，要不然自定义的map key驼峰转换不起作用
+        customizer.customize(configuration);
+        bean.setConfiguration(configuration);
         return bean.getObject();
     }
 
