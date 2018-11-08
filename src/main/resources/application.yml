@@ -53,6 +53,9 @@ spring:
 mybatis:
   mapper-locations: classpath:mapperXML/*.xml  # 注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: com.sailing.springbootmybatis.bean # 注意：对应实体类的路径
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 ## 配置mybatis分页插件
 pagehelper:
