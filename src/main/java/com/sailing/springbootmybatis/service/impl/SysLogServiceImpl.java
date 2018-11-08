@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2018/10/16 14：34
  */
 @Service
-@Transactional
+@Transactional(value = "transactionManagerOne")
 public class SysLogServiceImpl implements SysLogService{
 
     @Autowired

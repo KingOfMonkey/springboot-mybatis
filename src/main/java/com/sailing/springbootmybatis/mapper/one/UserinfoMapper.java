@@ -4,6 +4,7 @@ import com.sailing.springbootmybatis.bean.Userinfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserinfoMapper {
@@ -13,7 +14,7 @@ public interface UserinfoMapper {
 
     int insertSelective(Userinfo record);
 
-    Userinfo selectByPrimaryKey(Integer id);
+    Map selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Userinfo record);
 

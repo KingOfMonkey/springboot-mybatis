@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author baibing
@@ -36,7 +37,8 @@ public class UserinfoServiceImpl implements UserinfoService {
      */
     @Override
     public ResponseData findById(Integer id) {
-        Userinfo userinfo = userinfoMapper.selectByPrimaryKey(id);
+       // Userinfo userinfo = userinfoMapper.selectByPrimaryKey(id);
+        Map userinfo = userinfoMapper.selectByPrimaryKey(id);
         if(userinfo == null){
             throw new ServiceException("未找到相关用户信息");
         }
