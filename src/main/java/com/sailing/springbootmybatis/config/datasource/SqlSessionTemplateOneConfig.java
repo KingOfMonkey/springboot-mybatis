@@ -1,6 +1,5 @@
-package com.sailing.springbootmybatis.config;
+package com.sailing.springbootmybatis.config.datasource;
 
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -12,12 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -25,13 +21,13 @@ import javax.sql.DataSource;
  * @author baibing
  * @project: springboot-mybatis
  * @package: com.sailing.springbootmybatis.config
- * @Description: one数据源配置类
+ * @Description: SqlSessionTemplateOne配置类
  * @date 2018/10/18 17：05
  */
 @Configuration
 //下面的sqlSessionTemplateRef 值需要和生成的SqlSessionTemplate bean name相同，如果没有指定name,那么就是方法名
 @MapperScan(basePackages = {"com.sailing.springbootmybatis.mapper.one"}, sqlSessionTemplateRef = "sqlSessionTemplateOne")
-public class DataSourceOneConfig {
+public class SqlSessionTemplateOneConfig {
 
     @Value("${mybatis.mapper-locations}")
     private String mapper_location;
@@ -42,21 +38,14 @@ public class DataSourceOneConfig {
     @Value("${mybatis.configuration.map-underscore-to-camel-case}")
     private boolean mapUnderscoreToCamelCase;
 
-    @Value("${mybatis.configuration.log-impl}")
+//    @Value("${mybatis.configuration.log-impl}")
     private String logImpl;
 
     //将MybatisConfig类中初始化的对象注入进来
     @Autowired
     private ConfigurationCustomizer customizer;
 
-    private Logger logger = LoggerFactory.getLogger(DataSourceOneConfig.class);
-
-    @Primary//多数据源中必须要使用@Primary指定一个主数据源
-    @Bean(name = "datasourceOne")
-    @ConfigurationProperties(prefix = "spring.datasource.druid.one")
-    public DataSource datasourceOne() {
-        return DruidDataSourceBuilder.create().build();
-    }
+    private Logger logger = LoggerFactory.getLogger(SqlSessionTemplateOneConfig.class);
 
     /**
      * 自定义sqlSessionFactory配置（因为没有用到MybatisAutoConfiguration自动配置类，需要手动配置）
@@ -79,22 +68,12 @@ public class DataSourceOneConfig {
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         logger.info("mybatis配置驼峰转换为：" + mapUnderscoreToCamelCase);
         configuration.setMapUnderscoreToCamelCase(mapUnderscoreToCamelCase);
-        logger.info("mybatis配置logImpl为：" + logImpl);
-        configuration.setLogImpl((Class<? extends Log>)Class.forName(logImpl));
+//        logger.info("mybatis配置logImpl为：" + logImpl);
+//        configuration.setLogImpl((Class<? extends Log>)Class.forName(logImpl));
         //因为没有用mybatis-springBoot自动装配，所以需要手动将configuration装配进去，要不然自定义的map key驼峰转换不起作用
         customizer.customize(configuration);
         bean.setConfiguration(configuration);
         return bean.getObject();
-    }
-
-    /**
-     * 为选中的数据源 datasourceOne 添加事务管理
-     * @param dataSource
-     * @return
-     */
-    @Bean
-    public DataSourceTransactionManager transactionManagerOne(@Qualifier("datasourceOne") DataSource dataSource){
-        return new DataSourceTransactionManager(dataSource);
     }
 
     /**

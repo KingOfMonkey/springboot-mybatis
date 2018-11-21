@@ -5,36 +5,50 @@ server:
 ## 配置数据源相关信息
 spring:
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
+    type: com.alibaba.druid.pool.xa.DruidXADataSource
     druid:
       ## 连接池配置
-      filters: stat
-      maxActive: 20
-      initialSize: 1
-      maxWait: 60000
-      minIdle: 1
-      timeBetweenEvictionRunsMillis: 60000
-      minEvictableIdleTimeMillis: 300000
-      validationQuery: select 'x'
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-      poolPreparedStatements: true
-      maxOpenPreparedStatements: 20
       one:
         ## JDBC配置
         name: DBconfig1
         url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
         password: 123456
-        driver-class-name: com.mysql.jdbc.Driver
+        driverClassName: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: true
+        testOnReturn: true
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
       two:
         ## JDBC配置
         name: DBconfig2
         url: jdbc:mysql://127.0.0.1:3306/slave?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
         password: 123456
-        driver-class-name: com.mysql.jdbc.Driver
+        driverClassName: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: true
+        testOnReturn: true
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+
   redis:
     host: 127.0.0.1  # redis服务所在的地址
     port: 6379
@@ -55,7 +69,7 @@ mybatis:
   type-aliases-package: com.sailing.springbootmybatis.bean # 注意：对应实体类的路径
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 ## 配置mybatis分页插件
 pagehelper:

@@ -7,6 +7,7 @@ import com.sailing.springbootmybatis.common.response.BuildResponseUtil;
 import com.sailing.springbootmybatis.common.response.ResponseData;
 import com.sailing.springbootmybatis.common.exception.ServiceException;
 import com.sailing.springbootmybatis.mapper.one.UserinfoMapper;
+import com.sailing.springbootmybatis.mapper.two.PeopleMapper;
 import com.sailing.springbootmybatis.service.UserinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,16 @@ import java.util.Map;
  * @date 2018/9/12 10:03
  */
 @Service
-@Transactional(value = "transactionManagerOne")
+@Transactional
 public class UserinfoServiceImpl implements UserinfoService {
 
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
     private UserinfoMapper userinfoMapper;
+
+    @Autowired
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    private PeopleMapper peopleMapper;
 
     /**
      * 查找指定id对应的用户
@@ -81,13 +86,14 @@ public class UserinfoServiceImpl implements UserinfoService {
     }
 
     /**
-     * 删除指定用户
+     * 删除指定用户(如果多个数据源，没有使用jta的情况下只有transactionManagerOne会回滚，transactionManagerTwo不会回滚)
      * @param id 用户id
      * @return
      */
     @Override
     public ResponseData deleteUser(Integer id) {
         userinfoMapper.deleteByPrimaryKey(id);
+        peopleMapper.deleteByPrimaryId(id);
         System.out.println(10/0);
         return BuildResponseUtil.buildSuccessResponse();
     }
