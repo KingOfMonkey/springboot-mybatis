@@ -142,6 +142,14 @@
 			<version>1.1.8</version>
 		</dependency>
 
+		<!-- 添加jwt token 依赖包 -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.0</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
