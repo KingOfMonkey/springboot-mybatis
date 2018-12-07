@@ -78,6 +78,10 @@ pagehelper:
   support-methods-arguments: true
   params: count=conutSql
 
+jjwt:
+  secret:
+    key: r3NQf5nOat5x4V4qcDm80MicaskWeBhf86y4KvP6vOdZlPVEkH0g
+
 
 
 
