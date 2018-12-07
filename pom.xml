@@ -126,21 +126,22 @@
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.2</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.1.8</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<version>1.1.8</version>
-		</dependency>
+		<!-- 不用导入下面日志依赖，spring-boot-starter中包含对logback以及slf4j的依赖 -->
+		<!--<dependency>-->
+			<!--<groupId>org.slf4j</groupId>-->
+			<!--<artifactId>slf4j-api</artifactId>-->
+			<!--<version>1.7.2</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>ch.qos.logback</groupId>-->
+			<!--<artifactId>logback-classic</artifactId>-->
+			<!--<version>1.1.8</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>ch.qos.logback</groupId>-->
+			<!--<artifactId>logback-core</artifactId>-->
+			<!--<version>1.1.8</version>-->
+		<!--</dependency>-->
 
 		<!-- 添加jwt token 依赖包 -->
 		<!--<dependency>-->
