@@ -3,6 +3,7 @@ package com.sailing.springbootmybatis.filter;
 import com.alibaba.fastjson.JSON;
 import com.sailing.springbootmybatis.common.response.ResponseEnum;
 import com.sailing.springbootmybatis.service.TokenService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class JWTParseFilter implements Filter{
     private TokenService tokenService;
 
     //不需要过滤的路径(比如:注册登录等)
-    private String[] includeUrls = new String[]{"/yjbj/login","/yjbj/register","/yjbj/token/getToken"};
+    private String[] includeUrls = new String[]{"/yjbj/login","/yjbj/register","/yjbj/token/getToken", "/yjbj/swagger-ui.html"};
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -60,7 +61,8 @@ public class JWTParseFilter implements Filter{
                 writer.close();
             }else{
                 try {
-                    tokenService.parseJWT(jwt);
+                    Claims claims = tokenService.parseJWT(jwt);
+                    System.out.println(claims);
                     // if no exceptions then wo can truly trust the jwt
                     filterChain.doFilter(servletRequest, servletResponse);
                 } catch (ExpiredJwtException e) {
