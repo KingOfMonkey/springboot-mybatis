@@ -37,7 +37,7 @@ public class TokenServiceImpl implements TokenService{
         claims.put("roles", "管理员");
         claims.put("login_date", new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(now));
         JwtBuilder builder = Jwts.builder()
-                .setClaims(claims)//使用自定义载体，这个需要放到最前面，负责会将下面的设置覆盖掉
+                .setClaims(claims)//使用自定义载体，这个需要放到最前面，否则会将下面的设置覆盖掉
                 .setId(id)//token的id（代表唯一性)
                 .setIssuer("sailing")//签发人
                 .setSubject(sub)//主题

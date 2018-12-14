@@ -30,12 +30,12 @@ public class ModuleControllerAdvice {
         ResponseData responseData;
         if(e instanceof ServiceException){
             message = "业务受理失败, 原因:" + e.getLocalizedMessage();
-            SERVICE_LOGGER.info(message);
+            SERVICE_LOGGER.info("业务受理失败, 原因:{}", e.getLocalizedMessage());
             responseData = BuildResponseUtil.buildServiceFailResponse(message);
         }else{
             e.printStackTrace();
             message = "程序异常, 信息:" + e;
-            SERVER_LOGGER.info(message);
+            SERVER_LOGGER.info("程序异常, 信息:{}", e);
             responseData = BuildResponseUtil.buildServerErrorResponse(message);
         }
         return responseData;

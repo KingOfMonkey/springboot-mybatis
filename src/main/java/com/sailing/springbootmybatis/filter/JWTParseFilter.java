@@ -7,6 +7,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.*;
@@ -55,6 +56,7 @@ public class JWTParseFilter implements Filter{
                 result.put("code", ResponseEnum.NOT_LOGIN.getCode());
                 result.put("message", ResponseEnum.NOT_LOGIN.getMessage());
                 response.setContentType("application/json;charset=utf-8");
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 PrintWriter writer = response.getWriter();
                 writer.print(JSON.toJSONString(result));
                 writer.flush();
@@ -70,6 +72,7 @@ public class JWTParseFilter implements Filter{
                     PrintWriter writer = response.getWriter();
                     result.put("code", ResponseEnum.TOKEN_EXPIRED.getCode());
                     result.put("message", ResponseEnum.TOKEN_EXPIRED.getMessage());
+                    response.setStatus(HttpStatus.UNAUTHORIZED.value());
                     writer.print(JSON.toJSONString(result));
                     writer.flush();
                     writer.close();
@@ -78,6 +81,7 @@ public class JWTParseFilter implements Filter{
                     PrintWriter writer = response.getWriter();
                     result.put("code", ResponseEnum.REQUEST_ILLEGAL.getCode());
                     result.put("message", ResponseEnum.REQUEST_ILLEGAL.getMessage());
+                    response.setStatus(HttpStatus.UNAUTHORIZED.value());
                     writer.print(JSON.toJSONString(result));
                     writer.flush();
                     writer.close();

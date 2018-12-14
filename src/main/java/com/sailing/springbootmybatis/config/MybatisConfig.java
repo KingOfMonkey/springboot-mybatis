@@ -2,6 +2,8 @@ package com.sailing.springbootmybatis.config;
 
 import com.sailing.springbootmybatis.config.wrapper.MapWrapperFactory;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,9 +17,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MybatisConfig {
 
+    private Logger logger = LoggerFactory.getLogger(MybatisConfig.class);
+
     @Bean
     public ConfigurationCustomizer mybatisConfigurationCustomizer(){
-        System.out.println("initiazing ConfigurationCustomizer....");
+        logger.info("initialize the ConfigurationCustomizer....");
         return new ConfigurationCustomizer() {
             @Override
             public void customize(org.apache.ibatis.session.Configuration configuration) {

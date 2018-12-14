@@ -62,6 +62,10 @@ spring:
   druid: #druid监控页面用户名和密码
     name: admin
     pass: sailing123
+  mvc:
+    throw-exception-if-no-handler-found: true #增加此配置和下面配置后，全局异常捕获其就能捕获到框架抛出的异常。如404异常
+  resources:
+    add-mappings: false
 
 ## 该配置节点为独立的节点
 mybatis:

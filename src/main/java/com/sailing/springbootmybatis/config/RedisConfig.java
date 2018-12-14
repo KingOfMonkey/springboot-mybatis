@@ -28,7 +28,7 @@ public class RedisConfig {
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){
-        logger.info("redisTemplate configure start..." + redisConnectionFactory);
+        logger.info("redisTemplate configure is starting...and redisConnectionFactory is {}", redisConnectionFactory);
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         //如果使用默认的 DefaultSerializer 序列化，redis中key值是乱码，value是二进制形式的，不方便查看

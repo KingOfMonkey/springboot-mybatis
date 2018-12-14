@@ -55,7 +55,7 @@ public class SqlSessionTemplateOneConfig {
      */
     @Bean
     public SqlSessionFactory sqlSessionFactoryOne(@Qualifier("datasourceOne") DataSource dataSource) throws Exception {
-        logger.info("mapper文件地址：" + mapper_location);
+        logger.info("mapper文件地址为：{}", mapper_location);
         //在基本的 MyBatis 中,session 工厂可以使用 SqlSessionFactoryBuilder 来创建。
         // 而在 MyBatis-spring 中,则使用SqlSessionFactoryBean 来替代：
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
@@ -66,7 +66,7 @@ public class SqlSessionTemplateOneConfig {
         //下面这个setTypeAliasesPackage无效，是mybatis集成springBoot的一个bug，暂时未能解决
         bean.setTypeAliasesPackage(type_aliases_package);
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        logger.info("mybatis配置驼峰转换为：" + mapUnderscoreToCamelCase);
+        logger.info("mybatis配置驼峰转换为：{}", mapUnderscoreToCamelCase);
         configuration.setMapUnderscoreToCamelCase(mapUnderscoreToCamelCase);
 //        logger.info("mybatis配置logImpl为：" + logImpl);
 //        configuration.setLogImpl((Class<? extends Log>)Class.forName(logImpl));
