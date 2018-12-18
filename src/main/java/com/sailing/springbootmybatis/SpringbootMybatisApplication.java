@@ -1,6 +1,8 @@
 package com.sailing.springbootmybatis;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -25,6 +27,8 @@ import javax.sql.DataSource;
 @SpringBootApplication
 public class SpringbootMybatisApplication implements CommandLineRunner{
 
+	private final Logger logger = LoggerFactory.getLogger(SpringbootMybatisApplication.class);
+
 	@Autowired
 	@Qualifier("datasourceOne")
 	private DataSource dataSource;
@@ -35,6 +39,6 @@ public class SpringbootMybatisApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... strings) throws Exception {
-		System.out.println(dataSource);
+		logger.info("项目使用的dataSource为:{}", dataSource);
 	}
 }
