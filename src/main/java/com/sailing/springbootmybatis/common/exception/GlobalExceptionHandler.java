@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.*;
 //@ControllerAdvice
 @RestControllerAdvice(basePackages = {"com.sailing.springbootmybatis.controller"})
 //类似于 controller 和 restController的区别，@RestController中的所有接口返回值都为 responseBody json 格式
-public class ModuleControllerAdvice {
+public class GlobalExceptionHandler {
 
     private Logger SERVICE_LOGGER = LoggerFactory.getLogger(ServiceException.class);
 
-    private Logger SERVER_LOGGER = LoggerFactory.getLogger(ModuleControllerAdvice.class);
+    private Logger SERVER_LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 
     /**
