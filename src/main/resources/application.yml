@@ -11,7 +11,7 @@ spring:
       one:
         ## JDBC配置
         name: DBconfig1
-        url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false
+        url: jdbc:mysql://172.20.36.31:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
         password: 123456
         driverClassName: com.mysql.jdbc.Driver
@@ -31,7 +31,7 @@ spring:
       two:
         ## JDBC配置
         name: DBconfig2
-        url: jdbc:mysql://127.0.0.1:3306/slave?useUnicode=true&characterEncoding=utf8&useSSL=false
+        url: jdbc:mysql://172.20.36.31:3306/slave?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
         password: 123456
         driverClassName: com.mysql.jdbc.Driver
