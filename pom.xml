@@ -5,7 +5,7 @@
 
 	<groupId>com.sailing</groupId>
 	<artifactId>springboot-mybatis</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>springboot-mybatis</name>
@@ -28,6 +28,7 @@
 		<springboot.redis.version>1.3.8.RELEASE</springboot.redis.version>
 		<swagger.version>2.6.1</swagger.version>
 		<alibaba.fastJson.version>1.2.29</alibaba.fastJson.version>
+		<docker.image.prefix>docker</docker.image.prefix>
 	</properties>
 
 	<dependencies>
@@ -187,6 +188,24 @@
 					<configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
 					<overwrite>true</overwrite>
 					<verbose>true</verbose>
+				</configuration>
+			</plugin>
+
+			<!--docker maven 插件-->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.14</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
 				</configuration>
 			</plugin>
 		</plugins>
