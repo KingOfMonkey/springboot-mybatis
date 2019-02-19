@@ -48,27 +48,16 @@ public class ResponseData<T> implements Serializable {
         this.data = data;
     }
 
+    //不提供 setter 方法，只能通过提供的相应工具类
     public Integer getCode() {
         return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public T getData() {
         return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 }
